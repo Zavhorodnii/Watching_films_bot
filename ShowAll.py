@@ -12,7 +12,7 @@ class ShowAll:
         self.__message_film_id = []
         self.__message_pagination_id = 0
 
-    def show_all(self, update, context, offset=0):
+    def show_all(self, update, context, offset=1):
         # print(self.__url_get_all_films)
         # print(self.__films_in_one_pagination)
 
@@ -34,13 +34,13 @@ class ShowAll:
         index = 0
         skip = films_in_one_pagination * (int(offset) - 1)
         keyboard = []
-        while True:
+        for item in response:
             if skip > 0:
                 skip -= 1
                 index += 1
                 continue
             films_in_one_pagination -= 1
-            keyboard.append([InlineKeyboardButton(response[index]['title'], callback_data=f"film/{response[index]['_id']}")])
+            keyboard.append([InlineKeyboardButton(item['title'], callback_data=f"film/{item['_id']}")])
 
             index += 1
             if films_in_one_pagination == 0:
