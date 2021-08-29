@@ -79,7 +79,13 @@ class WatchingFilms:
         dispatcher = updater.dispatcher
 
         control_handler = ConversationHandler(
-            entry_points=[CommandHandler('start', self.start),],
+            entry_points=[
+                CommandHandler('start', self.start),
+                MessageHandler(Filters.regex('Узреть список почти шедевров'), self.show_all),
+                CallbackQueryHandler(self.show_one_film, pass_user_data=True, pattern="film/"),
+                CallbackQueryHandler(self.show_pagination_page, pass_user_data=True, pattern="page/"),
+                CallbackQueryHandler(self.reminder_pagination, pass_user_data=True, pattern="remind/"),
+            ],
             states={
                 SETTINGS_PAGINATION: [
                     MessageHandler(Filters.regex(r"^(?:[1-9]\d*(?:\.\d+)?|0\.0*[1-9]\d*)$"), self.setting_pagination,)
