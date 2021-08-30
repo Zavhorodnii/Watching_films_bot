@@ -24,7 +24,7 @@ ALL, ONE, SETTINGS_PAGINATION, SETTINGS_TIME, SETTINGS_DAY_BEFORE_NOTIFICATION =
 
 class WatchingFilms:
     def __init__(self, films_in_one_pagination=2, day_notification=7, check_time='12:00', __this_class=None):
-        print('init all')
+        # print('init all')
         self.__url_get_all_films = 'https://films-assembly.pp.ua/api/films'
         self.__url_get_one_film = 'https://films-assembly.pp.ua/api/film/'
         self.__films_in_one_pagination = films_in_one_pagination
@@ -43,7 +43,7 @@ class WatchingFilms:
         database = DataBase.DataBase()
         database.check_or_create_db()
         chat_settings = database.select_all_chat_settings()
-        print(f"dis = {self.dispatcher}")
+        # print(f"dis = {self.dispatcher}")
         telegram_bot = telegram.ext.callbackcontext.CallbackContext(self.dispatcher)
 
         for chat in chat_settings:
@@ -209,5 +209,5 @@ class WatchingFilms:
 
 if __name__ == '__main__':
     watchingFilms = WatchingFilms()
-    print('main function')
+    # print('main function')
     watchingFilms.main()

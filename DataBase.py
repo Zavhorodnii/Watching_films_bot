@@ -59,13 +59,13 @@ class DataBase:
             __cur.close()
 
     def add_chat(self, chat_id, films_in_one_pagination, day_notification, check_time):
-        print("create chat")
+        # print("create chat")
         in_table = self.select_chat_settings(chat_id)
         if len(in_table) > 0:
-            print("in_table")
+            # print("in_table")
             self.update_settings(films_in_one_pagination, day_notification, check_time, chat_id)
             return
-        print("create")
+        # print("create")
         __my_db_connector = self.create_connection()
         with __my_db_connector:
             __con = __my_db_connector.cursor()
@@ -76,7 +76,7 @@ class DataBase:
             __my_db_connector.commit()
 
     def select_chat_settings(self, chat_id):
-        print(f"chat_id = {chat_id}")
+        # print(f"chat_id = {chat_id}")
         __my_db_connector = self.create_connection()
         with __my_db_connector:
             __con = __my_db_connector.cursor()

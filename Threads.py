@@ -35,7 +35,7 @@ class Threads:
         self.__database = DataBase.DataBase()
 
     def start_thread(self):
-        print('thread start')
+        # print('thread start')
         thread = Thread(target=self.create_thread, args=())
         self.__thread = thread
         thread.start()
@@ -46,16 +46,16 @@ class Threads:
             ukraine_time = timezone('Europe/Kiev')
             time_now = datetime.now(ukraine_time).replace(tzinfo=None)
             if rem_time.time() <= time_now.time():
-                print('send mes')
+                # print('send mes')
                 self.thread_send_films()
 
                 time = ((rem_time + timedelta(days=1)) - time_now)
                 sleep_time = time.total_seconds()
             else:
-                print('not send')
+                # print('not send')
                 sleep_time = (rem_time - time_now).total_seconds()
 
-            print(f"sleep_time = {sleep_time}")
+            # print(f"sleep_time = {sleep_time}")
             sleep(sleep_time)
 
     def thread_send_films(self, offset=0):
@@ -122,10 +122,7 @@ class Threads:
         self.thread_send_films(page[1])
 
     def clear_mess(self):
-        print(self.__message_film_id)
-        print(self.__message_pagination_id)
         # try:
-        print(self.__message_film_id)
         if len(self.__message_film_id) > 0:
             for index in range(len(self.__message_film_id)):
                 self.__context.bot.deleteMessage(
