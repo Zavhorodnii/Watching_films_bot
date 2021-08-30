@@ -1,16 +1,19 @@
 import math
+import DataBase
 
 import requests as requests
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 
 
 class ShowAll:
-    def __init__(self, __url_get_all_films, __buttons, __films_in_one_pagination):
+    def __init__(self, __url_get_all_films, __buttons, __films_in_one_pagination, __message_film_id=[],
+                 __message_pagination_id=0):
         self.__url_get_all_films = __url_get_all_films
         self.__buttons = __buttons
         self.__films_in_one_pagination = __films_in_one_pagination
-        self.__message_film_id = []
-        self.__message_pagination_id = 0
+        self.__message_film_id = __message_film_id
+        self.__message_pagination_id = __message_pagination_id
+        self.__database = DataBase.DataBase()
 
     def show_all(self, update, context, offset=1):
         # print(self.__url_get_all_films)
@@ -61,6 +64,8 @@ class ShowAll:
                 reply_markup=buttons
             )
             self.__message_pagination_id = message.message_id
+
+            self.__database.add_messages(self.__message_film_id, self.__message_pagination_id, update.effective_chat.id)
 
     def show_pagination_page(self, update, context):
         page = update.callback_query.data.split('/')
