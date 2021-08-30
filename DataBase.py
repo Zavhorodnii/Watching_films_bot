@@ -37,10 +37,10 @@ class DataBase:
             # user='postgres',
             # password='root',
             # database='watching_films_bot',
-            host='ec2-54-73-58-75.eu-west-1.compute.amazonaws.com',
-            user='uqhhxycoxaihxq',
-            password='91d4691c14c330a8c414d28147747114df451ce5fa802cd6263dd185a9650e7f',
-            database='d1sm8k1mutg65v',
+            host='ec2-54-155-254-112.eu-west-1.compute.amazonaws.com',
+            user='dqjlnfxhmzkacs',
+            password='7f86084b2de3d5abefd1d68cf78f66aac5a14b67a29a229acc4056b7ad797ad7',
+            database='d5ll0q1sf6r29o',
             # charset='utf8mb4',
             # cursorclass=pymysql.cursors.DictCursor
         )
