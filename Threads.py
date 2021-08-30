@@ -125,6 +125,7 @@ class Threads:
         print(self.__message_film_id)
         print(self.__message_pagination_id)
         # try:
+        print(self.__message_film_id)
         if len(self.__message_film_id) > 0:
             for index in range(len(self.__message_film_id)):
                 self.__context.bot.deleteMessage(

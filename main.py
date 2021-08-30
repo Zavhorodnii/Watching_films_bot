@@ -45,7 +45,16 @@ class WatchingFilms:
         chat_settings = database.select_all_chat_settings()
         print(f"dis = {self.dispatcher}")
         telegram_bot = telegram.ext.callbackcontext.CallbackContext(self.dispatcher)
+
         for chat in chat_settings:
+            if chat[6] is not None:
+                array_str = chat[6].split(';')
+            else:
+                array_str = []
+            # print(f"len = {len_}")
+            # if len_ > 0:
+            #     print('split')
+
             self.__thread = Threads.Threads(self.__buttons,
                                             chat[2],
                                             chat[3],
@@ -53,7 +62,7 @@ class WatchingFilms:
                                             telegram_bot,
                                             chat[1],
                                             self.__url_get_all_films,
-                                            chat[6].split(';'),
+                                            array_str,
                                             chat[7])
             self.__thread.start_thread()
 
@@ -105,6 +114,10 @@ class WatchingFilms:
             self.restart_bot(update, context)
             database = DataBase.DataBase()
             chat_settings = database.select_chat_settings(update.effective_chat.id)
+            if chat_settings[0][6] is not None:
+                array_str = chat_settings[0][6].split(';')
+            else:
+                array_str = []
             self.__thread = Threads.Threads(self.__buttons,
                                             self.__day_notification,
                                             self.__check_time,
@@ -112,7 +125,7 @@ class WatchingFilms:
                                             context,
                                             self.__films_in_one_pagination,
                                             self.__url_get_all_films,
-                                            chat_settings[0][6].split(';'),
+                                            array_str,
                                             chat_settings[0][7])
             self.__thread.start_thread()
             # self.__thread.show_pagination_page(update, context)
@@ -126,8 +139,12 @@ class WatchingFilms:
             self.restart_bot(update, context)
             database = DataBase.DataBase()
             chat_settings = database.select_chat_settings(update.effective_chat.id)
+            if chat_settings[0][4] is not None:
+                array_str = chat_settings[0][4].split(';')
+            else:
+                array_str = []
             self.__show_all = ShowAll.ShowAll(self.__url_get_all_films, self.__buttons, self.__films_in_one_pagination,
-                                              chat_settings[0][4].split(';'),
+                                              array_str,
                                               chat_settings[0][5])
             self.__show_all.show_all(update, context)
         return

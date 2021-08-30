@@ -1,5 +1,5 @@
-import pymysql as pymysql
-# import psycopg2
+# import pymysql as pymysql
+import psycopg2
 
 class DataBase:
     def __init__(self):
@@ -18,9 +18,9 @@ class DataBase:
                                           "day_notification INT DEFAULT '7', " \
                                           "check_time VARCHAR(10) DEFAULT '12:00', " \
                                           "last_messages TEXT, " \
-                                          "last_pagination VARCHAR(10) DEFAULT '', " \
+                                          "last_pagination VARCHAR(10) DEFAULT '0', " \
                                           "last_remind_messages TEXT, " \
-                                          "last_remind_pagination VARCHAR(10) DEFAULT '')"
+                                          "last_remind_pagination VARCHAR(10) DEFAULT '0')"
 
         self.__select_settings = "select * from settings where chat_id = %s;"
         self.__select_all_settings = "select * from settings"
@@ -32,9 +32,9 @@ class DataBase:
         self.__update__remind = "UPDATE settings SET last_remind_messages = %s, last_remind_pagination = %s WHERE chat_id = %s"
 
     def create_connection(self):
-        return pymysql.connect(
+        return psycopg2.connect(
             host='localhost',
-            user='root',
+            user='postgres',
             password='root',
             database='watching_films_bot',
             # charset='utf8mb4',
@@ -59,11 +59,13 @@ class DataBase:
             __cur.close()
 
     def add_chat(self, chat_id, films_in_one_pagination, day_notification, check_time):
+        print("create chat")
         in_table = self.select_chat_settings(chat_id)
         if len(in_table) > 0:
+            print("in_table")
             self.update_settings(films_in_one_pagination, day_notification, check_time, chat_id)
             return
-
+        print("create")
         __my_db_connector = self.create_connection()
         with __my_db_connector:
             __con = __my_db_connector.cursor()
@@ -74,10 +76,11 @@ class DataBase:
             __my_db_connector.commit()
 
     def select_chat_settings(self, chat_id):
+        print(f"chat_id = {chat_id}")
         __my_db_connector = self.create_connection()
         with __my_db_connector:
             __con = __my_db_connector.cursor()
-            __con.execute(self.__select_settings, chat_id)
+            __con.execute(self.__select_settings, (str(chat_id),))
             all = __con.fetchall()
             __con.close()
         return all
