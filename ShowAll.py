@@ -78,7 +78,7 @@ class ShowAll:
                     update.effective_chat.id,
                     self.__message_film_id.pop(0),
                 )
-            print(f" self.__message_pagination_id = { self.__message_pagination_id}")
+            # print(f" self.__message_pagination_id = { self.__message_pagination_id}")
             if self.__message_pagination_id != 0:
                 context.bot.deleteMessage(
                     update.effective_chat.id,

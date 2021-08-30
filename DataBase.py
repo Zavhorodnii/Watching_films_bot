@@ -33,6 +33,10 @@ class DataBase:
 
     def create_connection(self):
         return psycopg2.connect(
+            # host='localhost',
+            # user='postgres',
+            # password='root',
+            # database='watching_films_bot',
             host='ec2-54-73-58-75.eu-west-1.compute.amazonaws.com',
             user='uqhhxycoxaihxq',
             password='91d4691c14c330a8c414d28147747114df451ce5fa802cd6263dd185a9650e7f',
@@ -43,13 +47,13 @@ class DataBase:
 
     def check_or_create_db(self):
         mydb = self.create_connection()
-        try:
-            with mydb:
-                __cur = mydb.cursor()
-                __cur.execute(self.__check_or_create_database)
-                __cur.close()
-        except Exception as exe:
-            pass
+        # try:
+        #     with mydb:
+        #         __cur = mydb.cursor()
+        #         __cur.execute(self.__check_or_create_database)
+        #         __cur.close()
+        # except Exception as exe:
+        #     pass
 
         # self.__my_db_connector = mydb
         __my_db_connector = self.create_connection()
