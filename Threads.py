@@ -67,7 +67,8 @@ class Threads:
             ).json()
             # print(response)
         except Exception as exe:
-            return
+            sleep(10)
+            self.thread_send_films(offset)
 
         __film = []
         ukraine_time = timezone('Europe/Kiev')
@@ -76,9 +77,12 @@ class Threads:
             # print(f"time = {(time_now + timedelta(days=self.__day_before_notification)).date()}")
             # date = datetime.strptime(item['datetime'], "%Y-%m-%d").date()
             # print(f"film = {date}")
-            if (time_now + timedelta(days=self.__day_before_notification)).date() == datetime.strptime(item['datetime'], "%Y-%m-%d").date() :
-                # print('+')
-                __film.append(item)
+            try:
+                if (time_now + timedelta(days=self.__day_before_notification)).date() == datetime.strptime(item['datetime'], "%Y-%m-%d").date() :
+                    __film.append(item)
+            except Exception as exe:
+                sleep(10)
+                self.thread_send_films(offset)
 
         # print(response)
         buttons = self.__buttons.pagination_remind(math.ceil(len(__film) / films_in_one_pagination))
@@ -122,20 +126,20 @@ class Threads:
         self.thread_send_films(page[1])
 
     def clear_mess(self):
-        # try:
-        if len(self.__message_film_id) > 0:
-            for index in range(len(self.__message_film_id)):
+        try:
+            if len(self.__message_film_id) > 0:
+                for index in range(len(self.__message_film_id)):
+                    self.__context.bot.deleteMessage(
+                        self.__effective_chat_id,
+                        self.__message_film_id.pop(0),
+                    )
+            if self.__message_pagination_id != 0:
                 self.__context.bot.deleteMessage(
                     self.__effective_chat_id,
-                    self.__message_film_id.pop(0),
+                    self.__message_pagination_id,
                 )
-        if self.__message_pagination_id != 0:
-            self.__context.bot.deleteMessage(
-                self.__effective_chat_id,
-                self.__message_pagination_id,
-            )
-        self.__message_pagination_id = 0
+            self.__message_pagination_id = 0
 
         # print(self.__message_pagination_id)
-        # except Exception as exe:
-        #     return
+        except Exception as exe:
+            return

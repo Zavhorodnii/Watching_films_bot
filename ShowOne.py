@@ -14,6 +14,11 @@ class ShowOne:
                 url=self.__url_get_one_film + film_id,
             ).json()
         except Exception as exe:
+            context.bot.send_message(
+                update.effective_chat.id,
+                text="Фильма уже нету",
+                parse_mode=ParseMode.HTML
+            )
             return
 
         html_text = ''

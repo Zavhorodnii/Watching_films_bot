@@ -1,4 +1,6 @@
 import math
+from time import sleep
+
 import DataBase
 
 import requests as requests
@@ -27,12 +29,12 @@ class ShowAll:
                 url=self.__url_get_all_films,
             ).json()
         except Exception as exe:
-            return
-
-        if len(response) > films_in_one_pagination:
-            buttons = self.__buttons.pagination_films(math.ceil(len(response) / films_in_one_pagination))
-        else:
-            buttons = self.__buttons.start_button()
+            sleep(10)
+            self.show_all(update, context, offset)
+        # if math.ceil(len(response)) > films_in_one_pagination:
+        buttons = self.__buttons.pagination_films(math.ceil(len(response) / films_in_one_pagination))
+        # else:
+        #     buttons = self.__buttons.start_button()
 
         index = 0
         skip = films_in_one_pagination * (int(offset) - 1)

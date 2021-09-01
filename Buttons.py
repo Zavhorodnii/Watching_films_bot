@@ -7,7 +7,7 @@ class Buttons:
         __reply_keyboard = [
             ['Узреть список почти шедевров', ],
         ]
-        return ReplyKeyboardMarkup(__reply_keyboard, resize_keyboard=True, one_time_keyboard=True)
+        return ReplyKeyboardMarkup(__reply_keyboard, resize_keyboard=True, one_time_keyboard=False)
 
     def pagination_films(self, count_pages):
         page = []
