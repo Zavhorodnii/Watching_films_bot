@@ -41,22 +41,26 @@ class Threads:
         thread.start()
 
     def create_thread(self):
-        while True:
-            rem_time = datetime.strptime(str(datetime.now().date()) + ' ' + self.__time + ':00', "%Y-%m-%d %H:%M:%S")
-            ukraine_time = timezone('Europe/Kiev')
-            time_now = datetime.now(ukraine_time).replace(tzinfo=None)
-            if rem_time.time() <= time_now.time():
-                # print('send mes')
-                self.thread_send_films()
+        try:
+            while True:
+                rem_time = datetime.strptime(str(datetime.now().date()) + ' ' + self.__time + ':00', "%Y-%m-%d %H:%M:%S")
+                ukraine_time = timezone('Europe/Kiev')
+                time_now = datetime.now(ukraine_time).replace(tzinfo=None)
+                if rem_time.time() <= time_now.time():
+                    # print('send mes')
+                    self.thread_send_films()
 
-                time = ((rem_time + timedelta(days=1)) - time_now)
-                sleep_time = time.total_seconds()
-            else:
-                # print('not send')
-                sleep_time = (rem_time - time_now).total_seconds()
+                    time = ((rem_time + timedelta(days=1)) - time_now)
+                    sleep_time = time.total_seconds()
+                else:
+                    # print('not send')
+                    sleep_time = (rem_time - time_now).total_seconds()
 
-            # print(f"sleep_time = {sleep_time}")
-            sleep(sleep_time)
+                # print(f"sleep_time = {sleep_time}")
+                sleep(sleep_time)
+        except Exception as exe:
+            sleep(10)
+            self.create_thread()
 
     def thread_send_films(self, offset=0):
         self.clear_mess()
