@@ -33,14 +33,14 @@ class DataBase:
 
     def create_connection(self):
         return psycopg2.connect(
-            host='localhost',
-            user='postgres',
-            password='root',
-            database='watching_films_bot',
-            # host='ec2-52-214-178-113.eu-west-1.compute.amazonaws.com',
-            # user='zwvstuemcsauoq',
-            # password='aaf9f61bba56567492538c3dc9f9d78d8fff30b9014de338df55cea7d8384453',
-            # database='d9kp2uffbs4h8s',
+            # host='localhost',
+            # user='postgres',
+            # password='root',
+            # database='watching_films_bot',
+            host='ec2-52-209-171-51.eu-west-1.compute.amazonaws.com',
+            user='bnwmxqgdyuqrnz',
+            password='4b8091c36b6cc9618ccf7e485d3bd7f033a290acda84eb79bade4d9e2ae8c763',
+            database='dbmotg4qpqjc16',
             # charset='utf8mb4',
             # cursorclass=pymysql.cursors.DictCursor
         )
