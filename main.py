@@ -136,7 +136,10 @@ class WatchingFilms:
         try:
             self.__show_all.show_all(update, context)
         except Exception as exe:
-            self.restart_bot(update, context)
+            try:
+                self.restart_bot(update, context)
+            except Exception as exe:
+                return ;
             database = DataBase.DataBase()
             chat_settings = database.select_chat_settings(update.effective_chat.id)
             if chat_settings[0][4] is not None:

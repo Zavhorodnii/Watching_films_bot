@@ -35,7 +35,7 @@ class ShowAll:
         buttons = self.__buttons.pagination_films(math.ceil(len(response) / films_in_one_pagination))
         # else:
         #     buttons = self.__buttons.start_button()
-
+        # print(response);
         index = 0
         skip = films_in_one_pagination * (int(offset) - 1)
         keyboard = []
@@ -44,8 +44,9 @@ class ShowAll:
                 skip -= 1
                 index += 1
                 continue
-            films_in_one_pagination -= 1
-            keyboard.append([InlineKeyboardButton(item['title'], callback_data=f"film/{item['_id']}")])
+            if 'title' in item:
+                films_in_one_pagination -= 1
+                keyboard.append([InlineKeyboardButton(item['title'], callback_data=f"film/{item['_id']}")])
 
             index += 1
             if films_in_one_pagination == 0:

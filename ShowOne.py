@@ -22,13 +22,13 @@ class ShowOne:
             return
 
         html_text = ''
-        if len(response['title']) > 0:
+        if 'title' in response:
             html_text = f"<strong>{response['title']}</strong>\n\n"
-        if len(response['datetime']) > 0:
-            html_text += f"Дата выхода:  {response['datetime']} \n\n"
-        if len(response['poster']) > 0:
+        if 'date' in response:
+            html_text += f"Дата выхода:  {response['date']} \n\n"
+        if 'poster' in response:
             html_text += f"{response['poster']} \n\n"
-        if len(response['description']) > 0:
+        if 'description' in response:
             html_text += f"{response['description']} \n\n"
 
         message = context.bot.send_message(
